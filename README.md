@@ -6,3 +6,5 @@ This is my first project for learning Jenkins and DevOps.
 - Git and GitHub
 - Jenkins
 - CI/CD Pipeline
+
+I am learning Jenkins Poll SCM.
