@@ -3,21 +3,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Check Java') {
             steps {
-                echo 'Starting application build...'
+                bat 'java -version'
             }
         }
 
-        stage('Test') {
+        stage('Check Git') {
             steps {
-                echo 'Running application tests...'
+                bat 'git --version'
             }
         }
 
-        stage('Deploy') {
+        stage('Check Workspace') {
             steps {
-                echo 'Application deployment completed!'
+                bat 'dir'
             }
         }
     }
