@@ -26,6 +26,9 @@ jobs:
 
       - name: Run Java Application
         run: java Main
+    
+      - name: Create JAR File
+        run: jar --create --file MyApp.jar --main-class Main Main.class
       
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
