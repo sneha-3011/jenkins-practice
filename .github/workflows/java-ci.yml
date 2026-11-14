@@ -31,6 +31,9 @@ jobs:
       - name: Deploy JAR to EC2
         run: |
           mkdir -p /home/ubuntu/java-app
+          if [ -f /home/ubuntu/java-app/MyApp.jar ]; then
+            cp /home/ubuntu/java-app/MyApp.jar /home/ubuntu/java-app/MyApp-backup.jar
+          fi
           cp MyApp.jar /home/ubuntu/java-app/
           cd /home/ubuntu/java-app
           java -jar MyApp.jar
