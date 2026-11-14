@@ -21,9 +21,6 @@ jobs:
 
       - name: Compile Java
         run: javac Main.java
-
-      - name: Run Java Application
-        run: java Main
     
       - name: Create JAR File
         run: jar --create --file MyApp.jar --main-class Main Main.class
