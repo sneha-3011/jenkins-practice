@@ -27,6 +27,13 @@ jobs:
     
       - name: Create JAR File
         run: jar --create --file MyApp.jar --main-class Main Main.class
+
+      - name: Deploy JAR to EC2
+        run: |
+          mkdir -p /home/ubuntu/java-app
+          cp MyApp.jar /home/ubuntu/java-app/
+          cd /home/ubuntu/java-app
+          java -jar MyApp.jar
       
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
