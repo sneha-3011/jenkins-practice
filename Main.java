@@ -1,9 +1,26 @@
+import com.sun.net.httpserver.HttpServer;
+import java.net.InetSocketAddress;
+import java.io.OutputStream;
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello from Java!");
-        System.out.println("My application is running through Jenkins.");
-        System.out.println("This change is from my feature branch!");
-        System.out.println("Updated automatically through GitHub Actions!");
+    public static void main(String[] args) throws Exception {
+
+        HttpServer server = HttpServer.create(
+            new InetSocketAddress(8080), 0
+        );
+
+        server.createContext("/", exchange -> {
+            String response = "Hello! My Java application is running on AWS EC2.";
+
+            exchange.sendResponseHeaders(200, response.length());
+
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
+            }
+        });
+
+        server.start();
+
+        System.out.println("Server started on port 8080");
     }
 }

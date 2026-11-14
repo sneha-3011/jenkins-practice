@@ -31,12 +31,20 @@ jobs:
       - name: Deploy JAR to EC2
         run: |
           mkdir -p /home/ubuntu/java-app
-          if [ -f /home/ubuntu/java-app/MyApp.jar ]; then
-            cp /home/ubuntu/java-app/MyApp.jar /home/ubuntu/java-app/MyApp-backup.jar
-          fi
-          cp MyApp.jar /home/ubuntu/java-app/
           cd /home/ubuntu/java-app
-          java -jar MyApp.jar
+
+          if [ -f MyApp.jar ]; then
+            cp MyApp.jar MyApp-backup.jar
+          fi
+
+          cp "$GITHUB_WORKSPACE/MyApp.jar" MyApp.jar
+
+          if [ -f app.pid ]; then
+            kill "$(cat app.pid)" || true
+          fi
+
+          nohup java -jar MyApp.jar > app.log 2>&1 < /dev/null &
+          echo $! > app.pid
       
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
